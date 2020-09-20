@@ -105,9 +105,33 @@ BST.prototype.getMinValue = function (irterative) {
     }
     if (treeNode.left) queue.push(treeNode.left);
     if (treeNode.right) queue.push(treeNode.right);
-    
   }
   return min.number;
+};
+
+// optimal method
+BST.prototype.getMinValue2 = function (irterative) {
+  let min = {};
+  min.number = irterative.value;
+  let queue = [];
+  queue.push(irterative);
+  while (queue.length) {
+    let treeNode = queue.shift();
+    if (treeNode.left) {
+      queue.push(treeNode.left);
+    } else {
+      return treeNode.value;
+    }
+  }
+};
+
+BST.prototype.getMinValue3 = function () {
+  if(this.left) return this.left.getMinValue3();
+  else return this.value;
+};
+BST.prototype.getMaxValue = function () {
+  if(this.right) return this.right.getMaxValue();
+  else return this.value;
 };
 
 let bst = new BST(50);
@@ -131,4 +155,8 @@ bst.insert(7);
 
 // bst.BreadthFirstSearch(log);
 
-console.log(bst.getMinValue(bst));
+// console.log(bst.getMinValue(bst));
+// console.log(bst.getMinValue2(bst));
+
+console.log(bst.getMinValue3());
+console.log(bst.getMaxValue());
